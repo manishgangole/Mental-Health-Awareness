@@ -89,44 +89,56 @@ document.addEventListener("DOMContentLoaded", function() {
             event.target.textContent = goalItem.querySelector("p").classList.contains("done") ? "Done" : "Mark as done";
         }
     });
-});
-const chatOutput = document.getElementById("chatOutput");
-const userInput = document.getElementById("userInput");
-const sendBtn = document.getElementById("sendBtn");
 
-const botResponses = {
-    "hello": "Hello! How can I assist you today?",
-    "how are you?": "I'm just a program, but I'm here to help you.",
-    "tell me a joke": "Why don't scientists trust atoms? Because they make up everything!",
-    "i feel sad": "I'm sorry to hear that. Remember, it's okay to feel sad sometimes. Can I help you with something specific?",
-    "what can you do?": "I can chat with you, help track your mood, set goals, and provide resources for mental health support.",
-    "default": "I'm not sure how to respond to that. Can you ask me something else?"
-};
+    // Chat Section logic
+    const chatNowBtn = document.getElementById('chatNowBtn');
+    const chatSection = document.getElementById('chatSection');
 
-function addMessageToChat(message, isUser) {
-    const messageElement = document.createElement("p");
-    messageElement.textContent = message;
-    messageElement.classList.add(isUser ? "user-message" : "bot-message");
-    chatOutput.appendChild(messageElement);
-    chatOutput.scrollTop = chatOutput.scrollHeight;  // Scroll to the bottom
-}
+    // Show the chat section when "Chat Now" button is clicked
+    chatNowBtn.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default link behavior
+        chatSection.style.display = 'block'; // Show the chat section
+    });
 
-function getBotResponse(userMessage) {
-    return botResponses[userMessage.toLowerCase()] || botResponses["default"];
-}
+    // Chat functionality
+    const chatOutput = document.getElementById("chatOutput");
+    const userInput = document.getElementById("userInput");
+    const sendBtn = document.getElementById("sendBtn");
 
-sendBtn.addEventListener("click", function() {
-    const userMessage = userInput.value.trim();
-    if (userMessage) {
-        addMessageToChat(userMessage, true);  // Add user's message
-        const botReply = getBotResponse(userMessage);  // Get bot's response
-        addMessageToChat(botReply, false);  // Add bot's response
-        userInput.value = '';  // Clear the input field
+    const botResponses = {
+        "hello": "Hello! How can I assist you today?",
+        "how are you?": "I'm just a program, but I'm here to help you.",
+        "tell me a joke": "Why don't scientists trust atoms? Because they make up everything!",
+        "i feel sad": "I'm sorry to hear that. Remember, it's okay to feel sad sometimes. Can I help you with something specific?",
+        "what can you do?": "I can chat with you, help track your mood, set goals, and provide resources for mental health support.",
+        "default": "I'm not sure how to respond to that. Can you ask me something else?"
+    };
+
+    function addMessageToChat(message, isUser) {
+        const messageElement = document.createElement("p");
+        messageElement.textContent = message;
+        messageElement.classList.add(isUser ? "user-message" : "bot-message");
+        chatOutput.appendChild(messageElement);
+        chatOutput.scrollTop = chatOutput.scrollHeight;  // Scroll to the bottom
     }
-});
 
-userInput.addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-        sendBtn.click();
+    function getBotResponse(userMessage) {
+        return botResponses[userMessage.toLowerCase()] || botResponses["default"];
     }
+
+    sendBtn.addEventListener("click", function() {
+        const userMessage = userInput.value.trim();
+        if (userMessage) {
+            addMessageToChat(userMessage, true);  // Add user's message
+            const botReply = getBotResponse(userMessage);  // Get bot's response
+            addMessageToChat(botReply, false);  // Add bot's response
+            userInput.value = '';  // Clear the input field
+        }
+    });
+
+    userInput.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            sendBtn.click();
+        }
+    });
 });
