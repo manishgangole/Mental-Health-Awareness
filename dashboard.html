@@ -46,12 +46,12 @@
             <div class="resource">
                 <h3>Managing Stress</h3>
                 <p>Learn how to manage stress effectively...</p>
-                <a href="#">Read more</a>
+                <a href="https://www.health.harvard.edu/mind-and-mood/best-ways-to-manage-stress">Read more</a>
             </div>
             <div class="resource">
                 <h3>Mindfulness Techniques</h3>
                 <p>Discover simple mindfulness practices...</p>
-                <a href="#">Read more</a>
+                <a href="https://positivepsychology.com/mindfulness-exercises-techniques-activities/">Read more</a>
             </div>
             <!-- Add more resources as needed -->
         </section>
@@ -59,18 +59,20 @@
         <section id="support" class="section">
             <h2>Support and Community</h2>
             <p>Chat with our Mental Health Bot or connect with others...</p>
-            <a href="#" class="button">Chat Now</a>
-            <a href="#" class="button">Find a Therapist</a>
+            <a href="#" class="button" id="chatNowBtn">Chat Now</a>
+            <a href="therapists.html" class="button">Find a Therapist</a>
+
         </section>
-        <!-- Add this inside the main content area where the "Chat Now" section will be -->
-<div class="chat-section">
-    <h2>Chat Now</h2>
-    <div class="chat-box">
-        <div id="chatOutput" class="chat-output"></div>
-        <input type="text" id="userInput" placeholder="Type your message here...">
-        <button id="sendBtn">Send</button>
-    </div>
-</div>
+        
+        <!-- Chat Section - Initially hidden -->
+        <div class="chat-section" id="chatSection" style="display: none;">
+            <h2>Chat Now</h2>
+            <div class="chat-box">
+                <div id="chatOutput" class="chat-output"></div>
+                <input type="text" id="userInput" placeholder="Type your message here...">
+                <button id="sendBtn">Send</button>
+            </div>
+        </div>
 
         <section id="goals" class="section">
             <h2>Goal Setting</h2>
