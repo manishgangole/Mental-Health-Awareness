@@ -7,7 +7,16 @@
     <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
-    <div class="sidebar">
+
+    <!-- Hamburger menu for small screens -->
+    <div class="hamburger-menu" id="hamburgerMenu">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
         <h2>Mental Health Awareness</h2>
         <ul>
             <li><a href="#welcome">Welcome</a></li>
@@ -53,7 +62,6 @@
                 <p>Discover simple mindfulness practices...</p>
                 <a href="https://positivepsychology.com/mindfulness-exercises-techniques-activities/">Read more</a>
             </div>
-            <!-- Add more resources as needed -->
         </section>
         
         <section id="support" class="section">
@@ -61,7 +69,6 @@
             <p>Chat with our Mental Health Bot or connect with others...</p>
             <a href="#" class="button" id="chatNowBtn">Chat Now</a>
             <a href="therapists.html" class="button">Find a Therapist</a>
-
         </section>
         
         <!-- Chat Section - Initially hidden -->
@@ -92,7 +99,7 @@
             <p id="insightsMessage">You have been feeling anxious lately. Consider trying some relaxation techniques.</p>
         </section>
     </div>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="dashboard.js"></script>
 </body>
