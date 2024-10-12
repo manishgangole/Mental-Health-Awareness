@@ -1,39 +1,36 @@
 const express = require('express');
-const path = require('path');
 const bodyParser = require('body-parser');
+const cors = require('cors');
+const path = require('path');
+
 const app = express();
+const PORT = 3000;
 
-// Serve static files (HTML, CSS, JS)
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Middleware to parse incoming JSON requests
+// Middleware
+app.use(cors());
 app.use(bodyParser.json());
+app.use(express.static('public')); // Serve static files from the 'public' directory
 
-// Route for serving the dashboard page
+// Serve dashboard.html at the root URL
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
 });
 
-// API to handle mood submission
+// Endpoint to handle mood data
 app.post('/api/mood', (req, res) => {
-    const moodData = req.body;
-    console.log('Mood Data:', moodData);
-
-    // You can save moodData to a database here (future integration)
-    res.status(200).json({ message: 'Mood received!' });
+    console.log('Mood Data Received:', req.body);
+    // Here, you would typically save the data to a database
+    res.json({ message: 'Mood data received', data: req.body });
 });
 
-// API to handle goal submission
+// Endpoint to handle goals data
 app.post('/api/goals', (req, res) => {
-    const goalData = req.body;
-    console.log('Goal Data:', goalData);
-
-    // You can save goalData to a database here (future integration)
-    res.status(200).json({ message: 'Goal received!' });
+    console.log('Goal Data Received:', req.body);
+    // Here, you would typically save the data to a database
+    res.json({ message: 'Goal data received', data: req.body });
 });
 
-// Start the server on port 3000
-const PORT = process.env.PORT || 3000;
+// Start the server
 app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Server is running on http://localhost:${PORT}`);
 });
