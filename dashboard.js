@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Mood Tracker logic remains unchanged
+    // Mood Tracker logic
     const moodForm = document.getElementById("moodForm");
     const moodChart = document.getElementById("moodChart").getContext('2d');
     let moodData = [];
@@ -11,6 +11,22 @@ document.addEventListener("DOMContentLoaded", function() {
 
         moodData.push({ date, mood });
         updateMoodChart();
+
+        // Send mood data to the backend
+        fetch('/api/mood', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ mood, date }),  // Send the data
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Mood saved:', data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
     });
 
     function updateMoodChart() {
@@ -79,6 +95,22 @@ document.addEventListener("DOMContentLoaded", function() {
 
         goalList.appendChild(goalItem);
         document.getElementById("goal").value = '';  // Clear the input field
+
+        // Send goal data to the backend
+        fetch('/api/goals', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ goal }),  // Send the data
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Goal saved:', data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
     });
 
     goalList.addEventListener("click", function(event) {
@@ -105,14 +137,44 @@ document.addEventListener("DOMContentLoaded", function() {
     const userInput = document.getElementById("userInput");
     const sendBtn = document.getElementById("sendBtn");
 
-    const botResponses = {
-        "hello": "Hello! How can I assist you today?",
-        "how are you?": "I'm just a program, but I'm here to help you.",
-        "tell me a joke": "Why don't scientists trust atoms? Because they make up everything!",
-        "i feel sad": "I'm sorry to hear that. Remember, it's okay to feel sad sometimes. Can I help you with something specific?",
-        "what can you do?": "I can chat with you, help track your mood, set goals, and provide resources for mental health support.",
-        "default": "I'm not sure how to respond to that. Can you ask me something else?"
-    };
+    // API Key
+    const apiKey = 'YOUR_API_KEY_HERE'; // Replace with your actual API key
+
+    // Function to call ChatGPT API
+    async function getChatGPTResponse(userMessage) {
+        const apiUrl = 'https://api.openai.com/v1/chat/completions';
+
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`,
+        };
+
+        const body = JSON.stringify({
+            model: 'gpt-3.5-turbo',
+            messages: [{ role: 'user', content: userMessage }],
+            max_tokens: 100,
+        });
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: headers,
+                body: body,
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error(`Error: ${response.status} ${response.statusText}`, errorData);
+                throw new Error(`Error: ${response.status} ${response.statusText}`);
+            }
+
+            const data = await response.json();
+            return data.choices[0].message.content;
+        } catch (error) {
+            console.error('Error fetching ChatGPT response:', error);
+            return "I'm sorry, I couldn't process your request at the moment.";
+        }
+    }
 
     function addMessageToChat(message, isUser) {
         const messageElement = document.createElement("p");
@@ -122,15 +184,11 @@ document.addEventListener("DOMContentLoaded", function() {
         chatOutput.scrollTop = chatOutput.scrollHeight;  // Scroll to the bottom
     }
 
-    function getBotResponse(userMessage) {
-        return botResponses[userMessage.toLowerCase()] || botResponses["default"];
-    }
-
-    sendBtn.addEventListener("click", function() {
+    sendBtn.addEventListener("click", async function() {
         const userMessage = userInput.value.trim();
         if (userMessage) {
             addMessageToChat(userMessage, true);  // Add user's message
-            const botReply = getBotResponse(userMessage);  // Get bot's response
+            const botReply = await getChatGPTResponse(userMessage);  // Get bot's response from API
             addMessageToChat(botReply, false);  // Add bot's response
             userInput.value = '';  // Clear the input field
         }
@@ -140,5 +198,59 @@ document.addEventListener("DOMContentLoaded", function() {
         if (event.key === "Enter") {
             sendBtn.click();
         }
+    });
+});
+// mood submission
+const moodForm = document.getElementById("moodForm");
+
+moodForm.addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent form submission from reloading the page
+
+    const mood = document.getElementById("mood").value;
+    const date = new Date().toLocaleDateString();
+
+    const moodData = { mood, date }; // Prepare mood data object
+
+    // Send mood data to the backend
+    fetch('http://localhost:3000/api/mood', { // Ensure you point to the right URL
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json', // Specify that we're sending JSON data
+        },
+        body: JSON.stringify(moodData), // Convert the moodData object to JSON
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Mood saved:', data); // Log the server response
+    })
+    .catch((error) => {
+        console.error('Error:', error); // Log errors if any
+    });
+});
+
+// goal submission
+const goalForm = document.getElementById("goalForm");
+
+goalForm.addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent form submission from reloading the page
+
+    const goal = document.getElementById("goal").value;
+
+    const goalData = { goal }; // Prepare goal data object
+
+    // Send goal data to the backend
+    fetch('http://localhost:3000/api/goals', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(goalData), // Convert the goalData object to JSON
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Goal saved:', data); // Log the server response
+    })
+    .catch((error) => {
+        console.error('Error:', error); // Log errors if any
     });
 });
