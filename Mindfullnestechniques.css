@@ -1,0 +1,113 @@
+/* Styling for mindfulness-techniques.html */
+.back-button {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: #45a049;
+}
+
+.back-button:hover {
+    background-color: #3e8e41;
+}
+.hero-section {
+    padding: 50px;
+    background-color: #e0f7fa;
+    text-align: center;
+}
+
+.techniques-section {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.technique {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.technique:hover {
+    transform: translateY(-5px);
+}
+.technique h2 {
+    color: #4CAF50;
+}
+
+.technique p {
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+/* Resources Section Styling */
+.resources-section {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.resources-section h2 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.resources-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.resources-section li {
+    margin-bottom: 10px;
+}
+
+.resources-section a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.resources-section a:hover {
+    text-decoration: underline;
+}
+/* Styling for Mindfulness Technique Steps */
+.technique h3 {
+    margin-top: 15px;
+    color: #4CAF50;
+}
+
+.technique ol {
+    margin-top: 10px;
+    padding-left: 20px;
+    line-height: 1.8;
+}
+
+.technique ol li {
+    margin-bottom: 10px;
+}
+/* Button styling */
+.toggle-btn {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.toggle-btn:hover {
+    background-color: #45a049;
+}
+
+/* Steps initially hidden */
+.steps {
+    display: none;
+}

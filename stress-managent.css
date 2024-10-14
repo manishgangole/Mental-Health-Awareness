@@ -1,0 +1,80 @@
+/* Styling for stress-management.html */
+.back-button {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: #45a049;
+}
+
+.back-button:hover {
+    background-color: #3e8e41;
+}
+
+.hero-section {
+    padding: 50px;
+    background-color: #f0f8ff;
+    text-align: center;
+}
+
+.tips-section {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.tip {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.tip:hover {
+    transform: translateY(-5px);
+}
+.tip h2 {
+    color: #4CAF50;
+}
+
+.tip p {
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+/* Resources Section Styling */
+.resources-section {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.resources-section h2 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.resources-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.resources-section li {
+    margin-bottom: 10px;
+}
+
+.resources-section a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.resources-section a:hover {
+    text-decoration: underline;
+}
