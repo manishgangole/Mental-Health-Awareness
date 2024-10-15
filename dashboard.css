@@ -49,7 +49,7 @@ body {
 
 /* Hamburger menu styling */
 .hamburger-menu {
-    display: none;
+    display: block;
     position: fixed;
     top: 10px;
     left: 10px;
@@ -260,4 +260,69 @@ form button:hover {
 
 #sendBtn:hover {
     background-color: #45a049;
+}
+/* Styles for small devices (phones) */
+@media (max-width: 600px) {
+    .sidebar {
+        transform: translateX(-100%); /* Initially hide sidebar */
+    }
+
+    .sidebar.visible {
+        transform: translateX(0); /* Show sidebar when 'visible' class is added */
+    }
+
+    .hamburger-menu {
+        display: block; /* Show hamburger menu on small screens */
+    }
+}
+/* Today's Journal Section Styling */
+.journal-section {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.journal-section h2 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+#journalInput {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+#saveJournalBtn {
+    padding: 10px 20px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#saveJournalBtn:hover {
+    background-color: #45a049;
+}
+
+#journalEntries {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.journal-entry {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #e9ffe9;
+    border-radius: 5px;
 }
