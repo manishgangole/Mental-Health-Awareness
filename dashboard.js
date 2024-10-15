@@ -1,10 +1,18 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
+    // Sidebar logic
+    const sidebar = document.querySelector('.sidebar');
+    const hamburgerMenu = document.querySelector('.hamburger-menu');
+
+    hamburgerMenu.addEventListener('click', function () {
+        sidebar.classList.toggle('hidden');
+    });
+
     // Mood Tracker logic
     const moodForm = document.getElementById("moodForm");
     const moodChart = document.getElementById("moodChart").getContext('2d');
     let moodData = [];
 
-    moodForm.addEventListener("submit", function(event) {
+    moodForm.addEventListener("submit", function (event) {
         event.preventDefault();
         const mood = document.getElementById("mood").value;
         const date = new Date().toLocaleDateString();
@@ -18,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ mood, date }),  // Send the data
+            body: JSON.stringify({ mood, date }),
         })
         .then(response => response.json())
         .then(data => {
@@ -51,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         beginAtZero: true,
                         max: 4,
                         ticks: {
-                            callback: function(value) {
+                            callback: function (value) {
                                 return moodLabel(value);
                             }
                         }
@@ -62,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function moodValue(mood) {
-        switch(mood) {
+        switch (mood) {
             case 'happy': return 3;
             case 'neutral': return 2;
             case 'anxious': return 1;
@@ -72,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function moodLabel(value) {
-        switch(value) {
+        switch (value) {
             case 3: return 'Happy';
             case 2: return 'Neutral';
             case 1: return 'Anxious';
@@ -85,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const goalForm = document.getElementById("goalForm");
     const goalList = document.getElementById("goalList");
 
-    goalForm.addEventListener("submit", function(event) {
+    goalForm.addEventListener("submit", function (event) {
         event.preventDefault();
         const goal = document.getElementById("goal").value;
 
@@ -94,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function() {
         goalItem.innerHTML = `<p>${goal}</p><a href="#" class="mark-done">Mark as done</a>`;
 
         goalList.appendChild(goalItem);
-        document.getElementById("goal").value = '';  // Clear the input field
+        document.getElementById("goal").value = ''; // Clear the input field
 
         // Send goal data to the backend
         fetch('/api/goals', {
@@ -102,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ goal }),  // Send the data
+            body: JSON.stringify({ goal }),
         })
         .then(response => response.json())
         .then(data => {
@@ -113,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    goalList.addEventListener("click", function(event) {
+    goalList.addEventListener("click", function (event) {
         if (event.target.classList.contains("mark-done")) {
             event.preventDefault();
             const goalItem = event.target.parentElement;
@@ -126,10 +134,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const chatNowBtn = document.getElementById('chatNowBtn');
     const chatSection = document.getElementById('chatSection');
 
-    // Show the chat section when "Chat Now" button is clicked
-    chatNowBtn.addEventListener('click', function(event) {
-        event.preventDefault(); // Prevent default link behavior
-        chatSection.style.display = 'block'; // Show the chat section
+    chatNowBtn.addEventListener('click', function (event) {
+        event.preventDefault();
+        chatSection.style.display = 'block';
     });
 
     // Chat functionality
@@ -137,22 +144,18 @@ document.addEventListener("DOMContentLoaded", function() {
     const userInput = document.getElementById("userInput");
     const sendBtn = document.getElementById("sendBtn");
 
-    // API Key
-    const apiKey = 'YOUR_API_KEY_HERE'; // Replace with your actual API key
+    const apiUrl = 'https://api-inference.huggingface.co/models/microsoft/DialoGPT-medium';
 
-    // Function to call ChatGPT API
-    async function getChatGPTResponse(userMessage) {
-        const apiUrl = 'https://api.openai.com/v1/chat/completions';
+    const apiKey = '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'; // Optional for better rate limits
 
+    async function getHuggingFaceResponse(userMessage) {
         const headers = {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${apiKey}`,
         };
 
         const body = JSON.stringify({
-            model: 'gpt-3.5-turbo',
-            messages: [{ role: 'user', content: userMessage }],
-            max_tokens: 100,
+            inputs: userMessage,
         });
 
         try {
@@ -169,9 +172,9 @@ document.addEventListener("DOMContentLoaded", function() {
             }
 
             const data = await response.json();
-            return data.choices[0].message.content;
+            return data.generated_text || "Sorry, I couldn't generate a response.";
         } catch (error) {
-            console.error('Error fetching ChatGPT response:', error);
+            console.error('Error fetching response:', error);
             return "I'm sorry, I couldn't process your request at the moment.";
         }
     }
@@ -181,76 +184,61 @@ document.addEventListener("DOMContentLoaded", function() {
         messageElement.textContent = message;
         messageElement.classList.add(isUser ? "user-message" : "bot-message");
         chatOutput.appendChild(messageElement);
-        chatOutput.scrollTop = chatOutput.scrollHeight;  // Scroll to the bottom
+        chatOutput.scrollTop = chatOutput.scrollHeight;
     }
 
-    sendBtn.addEventListener("click", async function() {
+    sendBtn.addEventListener("click", async function () {
         const userMessage = userInput.value.trim();
         if (userMessage) {
-            addMessageToChat(userMessage, true);  // Add user's message
-            const botReply = await getChatGPTResponse(userMessage);  // Get bot's response from API
-            addMessageToChat(botReply, false);  // Add bot's response
-            userInput.value = '';  // Clear the input field
+            addMessageToChat(userMessage, true);
+            const botReply = await getHuggingFaceResponse(userMessage);
+            addMessageToChat(botReply, false);
+            userInput.value = '';
         }
     });
 
-    userInput.addEventListener("keypress", function(event) {
+    userInput.addEventListener("keypress", function (event) {
         if (event.key === "Enter") {
             sendBtn.click();
         }
     });
 });
-// mood submission
-const moodForm = document.getElementById("moodForm");
+document.addEventListener("DOMContentLoaded", function() {
+    const saveJournalBtn = document.getElementById("saveJournalBtn");
+    const journalInput = document.getElementById("journalInput");
+    const journalEntries = document.getElementById("journalEntries");
 
-moodForm.addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent form submission from reloading the page
+    saveJournalBtn.addEventListener("click", async function() {
+        const entryText = journalInput.value.trim();
+        if (entryText) {
+            // Send journal entry to the backend
+            const response = await fetch('http://localhost:3000/api/journal', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ entry: entryText }),
+            });
 
-    const mood = document.getElementById("mood").value;
-    const date = new Date().toLocaleDateString();
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data.message); // Log success message
 
-    const moodData = { mood, date }; // Prepare mood data object
+                // Create a new entry for the journal display
+                const entryDiv = document.createElement("div");
+                entryDiv.classList.add("journal-entry");
+                entryDiv.textContent = entryText;
+                journalEntries.appendChild(entryDiv); // Add the new entry to the journal entries section
 
-    // Send mood data to the backend
-    fetch('http://localhost:3000/api/mood', { // Ensure you point to the right URL
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json', // Specify that we're sending JSON data
-        },
-        body: JSON.stringify(moodData), // Convert the moodData object to JSON
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Mood saved:', data); // Log the server response
-    })
-    .catch((error) => {
-        console.error('Error:', error); // Log errors if any
-    });
-});
-
-// goal submission
-const goalForm = document.getElementById("goalForm");
-
-goalForm.addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent form submission from reloading the page
-
-    const goal = document.getElementById("goal").value;
-
-    const goalData = { goal }; // Prepare goal data object
-
-    // Send goal data to the backend
-    fetch('http://localhost:3000/api/goals', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(goalData), // Convert the goalData object to JSON
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Goal saved:', data); // Log the server response
-    })
-    .catch((error) => {
-        console.error('Error:', error); // Log errors if any
+                // Clear the input field
+                journalInput.value = '';
+            } else {
+                const errorData = await response.json();
+                console.error('Error saving journal entry:', errorData);
+                alert("Failed to save journal entry.");
+            }
+        } else {
+            alert("Please write something before saving!");
+        }
     });
 });
