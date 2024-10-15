@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const apiUrl = 'https://api-inference.huggingface.co/models/microsoft/DialoGPT-medium';
 
-    const apiKey = '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'; // Optional for better rate limits
+    const apiKey = 'YOUR_API_KEY_HERE'; // Optional for better rate limits
 
     async function getHuggingFaceResponse(userMessage) {
         const headers = {
