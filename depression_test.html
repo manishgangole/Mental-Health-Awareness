@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Depression Test</title>
+    <link rel="stylesheet" href="depression_test.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Depression Test Online</h1>
+        <p class="intro-text">
+            Depression is a complex and multifaceted experience that can impact various aspects of life. 
+            Depression can manifest in different ways, affecting mood, energy levels, and overall daily functioning. 
+            The causes of depression too are often interwoven. Hopefully, with the help of this tool, 
+            these different symptoms and factors can be easier to detect and be aware of. 
+            It's important to note that this questionnaire is not a diagnostic tool, but rather a means to 
+            gain insights into certain feelings and behaviors associated with depression. 
+            Connecting with yourself is far more important than one label. 
+            The results are confidential and your honest responses will contribute to a better understanding 
+            of your own emotional experiences.
+        </p>
+        <button id="confirmAgeBtn">I am 18 years old or older</button>
+        <button id="denyAgeBtn">I am under 18 years old</button>
+        <div id="testContent" style="display: none;">
+            <h2>Begin the Depression Test</h2>
+            <p class="advice-text">
+                Please answer the following questions honestly and wisely. 
+                Your comfort is important, so take your time and respond at your own pace.
+            </p>
+            <form id="depressionForm">
+                <label for="question1">1. I don’t feel like doing any of the things that used to give me joy.</label>
+                <select id="question1" required>
+                    <option value="">Select...</option>
+                    <option value="0">Not at all</option>
+                    <option value="1">Several days</option>
+                    <option value="2">More than half the days</option>
+                    <option value="3">Nearly every day</option>
+                </select>
+                
+                <label for="question2">2. I feel fatigued to the bones.</label>
+                <select id="question2" required>
+                    <option value="">Select...</option>
+                    <option value="0">Not at all</option>
+                    <option value="1">Several days</option>
+                    <option value="2">More than half the days</option>
+                    <option value="3">Nearly every day</option>
+                </select>
+                
+                <label for="question3">3. I feel like a failure.</label>
+                <select id="question3" required>
+                    <option value="">Select...</option>
+                    <option value="0">Not at all</option>
+                    <option value="1">Several days</option>
+                    <option value="2">More than half the days</option>
+                    <option value="3">Nearly every day</option>
+                </select>
+                
+                <label for="question4">4. I get strong physical sensations out of nowhere (e.g., headaches, palpitations).</label>
+                <select id="question4" required>
+                    <option value="">Select...</option>
+                    <option value="0">Not at all</option>
+                    <option value="1">Several days</option>
+                    <option value="2">More than half the days</option>
+                    <option value="3">Nearly every day</option>
+                </select>
+
+                <label for="question5">5. I cry for no reason.</label>
+                <select id="question5" required>
+                    <option value="">Select...</option>
+                    <option value="0">Not at all</option>
+                    <option value="1">Several days</option>
+                    <option value="2">More than half the days</option>
+                    <option value="3">Nearly every day</option>
+                </select>
+                
+                <label for="question6">6. I feel restless in my body (e.g., lip/nail biting).</label>
+                <select id="question6" required>
+                    <option value="">Select...</option>
+                    <option value="0">Not at all</option>
+                    <option value="1">Several days</option>
+                    <option value="2">More than half the days</option>
+                    <option value="3">Nearly every day</option>
+                </select>
+
+                <label for="question7">7. I have lost people dear to me; the pain is still fresh.</label>
+                <select id="question7" required>
+                    <option value="">Select...</option>
+                    <option value="0">Not at all</option>
+                    <option value="1">Several days</option>
+                    <option value="2">More than half the days</option>
+                    <option value="3">Nearly every day</option>
+                </select>
+
+                <label for="question8">8. I live a good life, but something in me is always dissatisfied.</label>
+                <select id="question8" required>
+                    <option value="">Select...</option>
+                    <option value="0">Not at all</option>
+                    <option value="1">Several days</option>
+                    <option value="2">More than half the days</option>
+                    <option value="3">Nearly every day</option>
+                </select>
+
+                <label for="question9">9. I have gone through negative situations in my childhood that have affected me in strong ways.</label>
+                <select id="question9" required>
+                    <option value="">Select...</option>
+                    <option value="0">Not at all</option>
+                    <option value="1">Several days</option>
+                    <option value="2">More than half the days</option>
+                    <option value="3">Nearly every day</option>
+                </select>
+
+                <button type="submit">Submit Test</button>
+            </form>
+             <!-- Result Section -->
+        <div id="result"></div>
+    </div>
+        </div>
+    </div>
+
+    <script src="depression_test.js"></script>
+</body>
+</html>
