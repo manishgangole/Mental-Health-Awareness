@@ -1,0 +1,80 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 50px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.test-options {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.test-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    width: 30%;
+    margin: 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.test-card h2 {
+    color: #555;
+}
+
+.take-test-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.take-test-btn:hover {
+    background-color: #45a049;
+}
+
+p {
+    color: #777;
+}
+/* Base styles for the test card */
+.test-card {
+    background-color: #ffffff; /* White background */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    padding: 20px; /* Inner padding */
+    margin: 20px 0; /* Margin between cards */
+    transition: transform 0.3s, box-shadow 0.3s; /* Smooth transitions for transform and shadow */
+}
+
+/* Hover effect styles */
+.test-card:hover {
+    transform: translateY(-5px);
+}
+/* Example text styles for headings and paragraphs inside the card */
+.test-card h2 {
+    margin: 0 0 10px 0; /* Margin for heading */
+    font-size: 24px; /* Heading font size */
+}
+
+.test-card p {
+    margin: 0; /* Remove margin for paragraph */
+    line-height: 1.6; /* Better line height for readability */
+}
