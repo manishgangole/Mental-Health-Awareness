@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById('procrastinationQuizForm');
     const resultDiv = document.getElementById('result');
 
-    // Questions for the Procrastination Quiz
+    // Questions for the Procrastinaion Quiz
     const questions = [
         "I often find myself putting off tasks until the last minute.",
         "I tend to avoid starting projects because I’m afraid of not doing them perfectly.",
