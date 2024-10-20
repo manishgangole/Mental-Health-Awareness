@@ -168,40 +168,19 @@ form button:hover {
     list-style-type: none;
     padding: 0;
 }
-
 /* Styles for small devices (phones) */
 @media (max-width: 600px) {
-    body {
-        flex-direction: column;
+    .sidebar {
+        transform: translateX(-100%); /* Initially hide sidebar */
     }
-
+    .sidebar.visible {
+        transform: translateX(0); /* Show sidebar when 'visible' class is added */
+    }
     .hamburger-menu {
         display: block; /* Show hamburger menu on small screens */
     }
-
-    .sidebar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 200px;
-        transform: translateX(-100%); /* Initially hide sidebar */
-        transition: transform 0.3s ease;
-        transform: translateX(-100%); /* Initially hide sidebar */
-        transition: transform 0.3s ease;
-    }
-
-    .sidebar.visible {
-        transform: translateX(0); /* Show sidebar when visible */
-    }
-
-    .main-content {
-        padding: 10px; /* Reduce padding on small screens */
-    }
-
-    h1, h2 {
-        font-size: 1.5em; /* Adjust text size for smaller screens */
-    }
 }
+
 /* Chat Section Styles */
 .chat-section {
     background-color: #fff;
@@ -325,4 +304,27 @@ form button:hover {
     padding: 10px;
     background-color: #e9ffe9;
     border-radius: 5px;
+}
+.personality-test-container {
+    margin-top: 20px; /* Add some space above the button */
+    text-align: center; /* Center the button */
+}
+
+#personalityTestBtn {
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Bootstrap primary color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#personalityTestBtn:hover {
+    background-color: #45a049; /* Darker shade on hover */
+}
+#calendar {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 10px;
 }
