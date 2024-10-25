@@ -1,29 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personality Tests</title>
-    <link rel="stylesheet" href="persnalitytest.css">
-</head>
-<body>
-    <div class="container">
-        <h1>Personality Tests</h1>
-        <div class="test-options">
-            <div class="test-card" id="depressionTest">
-                <h2>Depression Test</h2>
-                <p>Find out if you're experiencing symptoms of depression.</p>
-                <button class="take-test-btn" data-test="depression">Take Test</button>
-            </div>
-            <div class="test-card" id="anxietyTest">
-                <h2>procrastination test</h2>
-                <p>Understanding your habit.</p>
-                <button class="take-test-btn" data-test="procrastination">Take Test</button>
-            </div>
-            <!-- Add more tests here -->
-        </div>
-    </div>
+document.addEventListener('DOMContentLoaded', function () {
+    const testButtons = document.querySelectorAll('.take-test-btn');
 
-    <script src="persnalitytest.js"></script>
-</body>
-</html>
+    testButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const testType = this.getAttribute('data-test');
+            loadTest(testType);
+        });
+    });
+
+    function loadTest(testType) {
+        if (testType === 'depression') {
+            window.location.href = 'depression_test.html'; // Redirect to the Depression Test page
+        } else if (testType === 'procrastination') {
+            window.location.href = 'procrastination_test.html'; // Redirect to the Anxiety Test page
+        }
+        // Add more conditions for different tests
+    }
+});
